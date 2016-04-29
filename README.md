@@ -70,6 +70,9 @@ The upload button masks the normal file input and makes it look like a button
   // Optional, make file input required and add ng-invalid-required if required is set to true on the input button
   required="true|false"
 
+  // Optional, return a promise that will start the upload when it resolves
+  before-upload="beforeUpload()"
+
   on-upload="onUpload(files)" // Optional callback when uploading starts
   on-success="onSuccess(response)" // Optional callback
   on-error="onError(response)" // Optional callback

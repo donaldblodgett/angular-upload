@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lr.upload.directives').directive('uploadButton', function(upload) {
+angular.module('lr.upload.directives').directive('uploadButton', function($q, upload) {
   return {
     restrict: 'EA',
     scope: {
@@ -9,6 +9,7 @@ angular.module('lr.upload.directives').directive('uploadButton', function(upload
       id: '@',
       param: '@',
       method: '@',
+      beforeUpload: '&',
       onUpload: '&',
       onSuccess: '&',
       onError: '&',
@@ -38,20 +39,19 @@ angular.module('lr.upload.directives').directive('uploadButton', function(upload
 
         options.data[scope.param || 'file'] = fileInput;
 
-        scope.$apply(function () {
+        $q.when(scope.beforeUpload()).then(function() {
           scope.onUpload({files: fileInput[0].files});
+          upload(options).then(
+            function (response) {
+              scope.onSuccess({response: response});
+              scope.onComplete({response: response});
+            },
+            function (response) {
+              scope.onError({response: response});
+              scope.onComplete({response: response});
+            }
+          );
         });
-
-        upload(options).then(
-          function (response) {
-            scope.onSuccess({response: response});
-            scope.onComplete({response: response});
-          },
-          function (response) {
-            scope.onError({response: response});
-            scope.onComplete({response: response});
-          }
-        );
       });
 
       // Add required to file input and ng-invalid-required
