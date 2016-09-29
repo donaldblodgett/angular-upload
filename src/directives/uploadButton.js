@@ -10,6 +10,7 @@ angular.module('lr.upload.directives').directive('uploadButton', function($q, up
       param: '@',
       method: '@',
       beforeUpload: '&',
+      keyGenerationStrategy: '&',
       onUpload: '&',
       onSuccess: '&',
       onError: '&',
@@ -34,6 +35,7 @@ angular.module('lr.upload.directives').directive('uploadButton', function($q, up
           url: scope.url,
           method: scope.method || 'POST',
           forceIFrameUpload: scope.$eval(attr.forceIframeUpload) || false,
+          keyGenerationStrategy: scope.keyGenerationStrategy ? scope.keyGenerationStrategy() : undefined,
           data: scope.data || {}
         };
 

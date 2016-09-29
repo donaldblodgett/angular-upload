@@ -64,6 +64,10 @@ The upload button masks the normal file input and makes it look like a button
   // Optional, Allow selecting multiple files, defaults to false
   multiple="{{allowMultiple}}"
 
+  // Optional, callback used to generate the form key for multiple file upload; default is "$param + '[' + index + ']'"
+  // callback is provided with the param, file, and index for each file selected
+  key-generation-strategy="keyGenerationStrategy"
+
   // Optional, force all uploads through the iframe solution, defaults to false and should normally not be included
   force-iframe-upload="{{forceIframeUpload}}"
 
